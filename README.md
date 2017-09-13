@@ -44,7 +44,7 @@ function secondFunc () {
 
 However, the assignment of `myVar` as `'Bar'` is **not visible to `firstFunc()`**. This is because `secondFunc()` is **not** the parent scope of `firstFunc()`.
 
-![Lexical scoping](https://user-images.githubusercontent.com/17556281/29369661-408f9342-8271-11e7-91ec-236c30f7a716.png)
+![Lexical scoping](https://curriculum-content.s3.amazonaws.com/web-development/js/principles/lexical-scoping-readme/lexical_scoping.png)
 
 `firstFunc()` is declared in the global scope, and, when it comes to the scope chain, JavaScript functions don't care where they are invoked. **The only thing that matters is where they are declared**. When we declare a new function, the function asks, "Where was I created?" The answer to that question is the outer environment (the outer scope) that gets stored in the new function's scope chain.
 
@@ -80,7 +80,11 @@ If this isn't making a ton of sense, don't sweat it too much! We're spending tim
 
 When a variable contains an unexpected value, understanding the scope chain will save you countless hours of painful debugging. When you're wondering where to declare a function so that it can access the proper variables, your familiarity with JavaScript's lexical scoping will save the day. When you want to impress some new friends at a party, hit 'em with a quick lesson on how running JavaScript code consists of distinct compilation and execution phases.
 
-![Cool party!](https://user-images.githubusercontent.com/17556281/29349418-d385f406-8227-11e7-9994-a49681e5dea4.gif)
+<picture>
+  <source srcset="https://curriculum-content.s3.amazonaws.com/web-development/js/principles/lexical-scoping-readme/cool_party.webp" type="image/webp">
+  <source srcset="https://curriculum-content.s3.amazonaws.com/web-development/js/principles/lexical-scoping-readme/cool_party.gif" type="image/gif">
+  <img src="https://curriculum-content.s3.amazonaws.com/web-development/js/principles/lexical-scoping-readme/cool_party.gif" alt="Cool party!">
+</picture>
 
 ## Resources
 - [JavaScript: Understanding the Weird Parts - The First 3.5 Hours](https://www.youtube.com/watch?v=Bv_5Zv5c-Ts) (Video)
