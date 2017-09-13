@@ -1,7 +1,7 @@
 # Lexical scoping
 
 ## Overview
-In this lesson, we'll learn how JavaScript decides which outer environment to place into the scope chain for a new function.
+In this lesson, we'll learn how JavaScript decides which outer scope to place into the scope chain for a new function.
 
 ## Objectives
 1. Explain the concept of lexical scoping.
