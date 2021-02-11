@@ -1,16 +1,14 @@
 # Lexical scoping
 
-## Overview
+## Learning Goals
+
+- Explain the concept of lexical scoping.
+- Describe how lexical scoping informs the scope chain of a function.
+
+## Introduction
 
 In this lesson, we'll learn how JavaScript decides which outer scope to place
 into the scope chain for a new function.
-
-## Objectives
-
-1. Explain the concept of lexical scoping.
-2. Describe how lexical scoping informs the scope chain of a function.
-
-## Introduction
 
 First, a brief note. Some of the material introduced in this section might feel
 a bit confusing or esoteric, but, fear not, you're going to get more and more
@@ -97,14 +95,8 @@ _scope_ that you might encounter in advanced JavaScript materials. _Lexical_
 means "having to do with words," and for lexical scoping what counts is where
 we, the programmer, typed out the function declaration within our code.
 
-In the example above, we typed out our declaration for `first()` in the global
-scope, which gets stored in `first()`'s scope chain. When `first()` is invoked,
-the JavaScript engine can't find anything matching `myVar` locally, so it looked
-up the scope chain. The engine finds `myVar` in the outer scope — the global
-scope — with a value of `'Foo'`, which is what then gets printed out to the
-console.
-
-By contrast, if we **declare `first()` inside `second()`**, then `first()`'s
+In the example above, we typed out our declaration for first() in the global
+scope. If we instead declare `first()` inside `second()`, then `first()`'s
 reference to its outer scope points at `second()` instead of at the global
 scope:
 
