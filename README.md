@@ -95,7 +95,7 @@ _scope_ that you might encounter in advanced JavaScript materials. _Lexical_
 means "having to do with words," and for lexical scoping what counts is where
 we, the programmer, typed out the function declaration within our code.
 
-In the example above, we typed out our declaration for first() in the global
+In the example above, we typed out our declaration for `first()` in the global
 scope. If we instead declare `first()` inside `second()`, then `first()`'s
 reference to its outer scope points at `second()` instead of at the global
 scope:
@@ -116,7 +116,8 @@ function second () {
 }
 ```
 
-When we invoke `second()` this time, it creates a local `myVar` variable set to `'Bar'`. Then, it invokes `first()`:
+When we invoke `second()` this time, it creates a local `myVar` variable set to
+`'Bar'`. Then, it invokes `first()`:
 
 ```js
 second();
@@ -129,8 +130,8 @@ While `first()` is executing, it again encounters the reference to `myVar` and
 realizes it doesn't have a local variable or function with that name. `first()`
 looks up the scope chain again, but this time `first()`'s outer scope isn't the
 global scope. It's the scope of `second()` **because `first()` was declared
-inside `second()`**. So `first()` uses the copy of `myVar` from the `second()`
-scope, which contains the string `'Bar'`.
+inside `second()`**. So `first()` uses the version of the `myVar` variable from
+the `second()` scope, which contains the string `'Bar'`.
 
 ## Wrapping up
 
