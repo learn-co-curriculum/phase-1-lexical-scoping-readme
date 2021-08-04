@@ -23,16 +23,16 @@ onwards and upwards!
 Take a look at the following code snippet:
 
 ```js
-const myVar = 'Foo';
+const myVar = "Foo";
 
-function first () {
-  console.log('Inside first()');
+function first() {
+  console.log("Inside first()");
 
-  console.log('myVar is currently equal to:', myVar);
+  console.log("myVar is currently equal to:", myVar);
 }
 
-function second () {
-  const myVar = 'Bar';
+function second() {
+  const myVar = "Bar";
 
   first();
 }
@@ -55,8 +55,8 @@ get printed out. Inside `second()`, that string is assigned to the `myVar`
 variable right before `first()` is invoked:
 
 ```js
-function second () {
-  const myVar = 'Bar';
+function second() {
+  const myVar = "Bar";
 
   first();
 }
@@ -75,13 +75,12 @@ reaches the second line of code inside the function, it has to consult the scope
 chain to figure out what the heck this `myVar` thing is:
 
 ```js
-console.log('myVar is currently equal to:', myVar);
+console.log("myVar is currently equal to:", myVar);
 ```
 
 The engine's first (and only) stop in the scope chain is the global scope, where
 it finds a variable named `myVar`. The reference to `myVar` inside `first()` is
-pointed at that external variable, so `console.log()` prints out `myVar is
-currently equal to: Foo`.
+pointed at that external variable, so `console.log()` prints out `myVar is currently equal to: Foo`.
 
 `first()` is declared in the global scope, and, when it comes to the scope
 chain, JavaScript functions don't care where they are invoked. **The only thing
@@ -101,16 +100,16 @@ reference to its outer scope points at `second()` instead of at the global
 scope:
 
 ```js
-const myVar = 'Foo';
+const myVar = "Foo";
 
-function second () {
-  function first () {
-    console.log('Inside first()');
+function second() {
+  function first() {
+    console.log("Inside first()");
 
-    console.log('myVar is currently equal to:', myVar);
+    console.log("myVar is currently equal to:", myVar);
   }
 
-  const myVar = 'Bar';
+  const myVar = "Bar";
 
   first();
 }
@@ -155,8 +154,6 @@ declare a function so that it can access the proper variables, your familiarity
 with JavaScript's lexical scoping will save the day. When you want to impress
 some new friends at a party, hit 'em with a quick lesson on how running
 JavaScript code consists of distinct compilation and execution phases.
-
-![Cool party!](https://curriculum-content.s3.amazonaws.com/web-development/js/principles/lexical-scoping-readme/cool_party.gif)
 
 ## Resources
 
