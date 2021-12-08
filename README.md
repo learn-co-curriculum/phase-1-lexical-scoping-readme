@@ -80,7 +80,8 @@ console.log("myVar is currently equal to:", myVar);
 
 The engine's first (and only) stop in the scope chain is the global scope, where
 it finds a variable named `myVar`. The reference to `myVar` inside `first()` is
-pointed at that external variable, so `console.log()` prints out `myVar is currently equal to: Foo`.
+pointed at that external variable, so `console.log()` prints out
+`myVar is currently equal to: Foo`.
 
 `first()` is declared in the global scope, and, when it comes to the scope
 chain, JavaScript functions don't care where they are invoked. **The only thing
@@ -157,4 +158,6 @@ JavaScript code consists of distinct compilation and execution phases.
 
 ## Resources
 
-- [JavaScript: Understanding the Weird Parts - The First 3.5 Hours](https://www.youtube.com/watch?v=Bv_5Zv5c-Ts) (Video)
+-
+  [JavaScript: Understanding the Weird Parts - The First 3.5 Hours](https://www.youtube.com/watch?v=Bv_5Zv5c-Ts)
+  (Video)
