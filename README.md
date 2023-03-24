@@ -98,10 +98,42 @@ individual scope chain.
 
 Meaning, when `showStatus()` is invoked in `changeStatus()`, it still only has
 access to anything within its own scope and the global one. From there, what we
-learned about the scope chain remains true. When JavaScript reaches the
-`console.log` referring to the `currentStatus` variable, it first looks within
-its own `showStatus()` scope. It doesn't find it there, so it moves up the chain
-to global, where it finds the original definition.
+learned about the scope chain remains true.
+
+When JavaScript reaches the `console.log` referring to the `currentStatus`
+variable, it first looks within its own `showStatus()` scope. It doesn't find it
+there, so it moves up the chain to global, where it finds the original
+definition.
 
 It never looks inside `changeStatus()`'s scope because, as we learned, the scope
 chain only moves _upward_, never sideways.
+
+In sum, when it comes to the scope chain, **JavaScript variables and functions
+don't care where they are referred to or invoked. The only thing that matters is
+where they are declared**.
+
+## Conclusion
+
+Lexical scope refers to something's home scope. Much like ourselves, a function
+or variable's lexical scope lives in just one place. We can visit friends,
+cafés, work, school, wherever - but our address will always remain at home.
+Lexical scope is the same. Functions can be invoked wherever possible, but its
+home scope, and therefore its accessible scope chain, will always remain the
+same.
+
+As with all things scope, this too may feel like some nebulous concept. Scope is
+not something you consciously do or write. In a way, it just happens. However,
+where you write things determines how they're scoped and what other parts of
+code they have access to. It is an ever-present concept, always there even when
+you're not thinking about it.
+
+As you move through the rest of this course and further on your programming
+journey, just knowing what all this scope magic is will help immensely.
+
+When a variable contains an unexpected value, understanding the scope chain will
+save you countless hours of painful debugging. When you're wondering where to
+declare a function so that it can access the proper variables, your familiarity
+with JavaScript's lexical scoping will save the day. When you want to impress
+some new friends at a party, hit 'em with a quick lesson on how everything
+defined in JavaScript has a home (well, a lexical scope), and isn't that just
+beautiful?
