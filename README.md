@@ -2,9 +2,8 @@
 
 ## Learning Goals
 
-- one
-- two
-- three
+- Describe lexical scope as the scope where a variable or function is defined.
+- Examine how lexical scoping informs the scope chain of a function.
 
 ## Introduction
 
