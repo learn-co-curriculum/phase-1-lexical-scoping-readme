@@ -1,163 +1,107 @@
-# Lexical scoping
+# Lexical Scope
 
 ## Learning Goals
 
-- Explain the concept of lexical scoping.
-- Describe how lexical scoping informs the scope chain of a function.
+- one
+- two
+- three
 
 ## Introduction
 
-In this lesson, we'll learn how JavaScript decides which outer scope to place
-into the scope chain for a new function.
+In our journey to understand scope, we've learned about the three different
+levels, the scope chain, and how JavaScript traverses it. What we haven't
+learned is how JavaScript decides which outer scope to place into the scope
+chain for a new function.
 
-First, a brief note. Some of the material introduced in this section might feel
-a bit confusing or esoteric, but, fear not, you're going to get more and more
-comfortable with these concepts throughout this course. If you're finding it
-difficult to wrap your brain around some of these more abstract concepts at this
-point, **don't freak out**. This is really difficult material that even seasoned
-programmers occasionally struggle with. After you've read the material and given
-it a college try, feel free to move on to the next lesson — with a mental note
-to return once you have more JavaScript experience under your belt. Okay,
-onwards and upwards!
+We have an _idea_ of how, based on what we learned about the chain and nesting
+scopes. Anything that a scope is nested within would be considered part of its
+outer scope chain.
 
-Take a look at the following code snippet:
+However, that doesn't give the whole picture. It doesn't get to the root core of
+how JavaScript decides where scope is defined when a variable, function, or code
+block is written. This is when the concept of lexical scope comes in.
+
+## Lexical Scope
+
+So, what _is_ this magical lexical scope? Before we break it down, let's look at
+the following code snippet:
 
 ```js
-const myVar = "Foo";
+const currentStatus = "Crocheting a sweater 🧶";
 
-function first() {
-  console.log("Inside first()");
-
-  console.log("myVar is currently equal to:", myVar);
+function showStatus() {
+  console.log("Current Status:");
+  console.log(" ", currentStatus);
 }
 
-function second() {
-  const myVar = "Bar";
-
-  first();
-}
-```
-
-Think about what we've learned in previous lessons about how JavaScript looks up
-the scope chain to perform identifier resolution. Given that information, what
-do you think will get logged out to the console when we invoke `second()`? Let's
-try it out:
-
-```js
-second();
-// LOG: Inside first()
-// LOG: myVar is currently equal to: Foo
-// => undefined
-```
-
-Did that catch you by surprise? At first glance, it might seem like `Bar` should
-get printed out. Inside `second()`, that string is assigned to the `myVar`
-variable right before `first()` is invoked:
-
-```js
-function second() {
-  const myVar = "Bar";
-
-  first();
+function changeStatus() {
+  const currentStatus = "Cat tangled all my yarn! 🙀";
+  showStatus();
 }
 ```
 
-However, the assignment of `myVar` as `'Bar'` is **not visible to `first()`**.
-This is because `second()` is **not** the parent scope of `first()`.
-
-In the following diagram, the red `myVar` is declared in the global scope, and
-the green `myVar` is declared inside `second()`:
-
-![Lexical scope](https://curriculum-content.s3.amazonaws.com/web-development/js/principles/lexical-scoping-readme/lexical_scope.png)
-
-No variable named `myVar` exists inside `first()`. When the JavaScript engine
-reaches the second line of code inside the function, it has to consult the scope
-chain to figure out what the heck this `myVar` thing is:
+What do you think will be logged to the console when we run `changeStatus()`?
 
 ```js
-console.log("myVar is currently equal to:", myVar);
+changeStatus();
+// => Current Status:
+// =>  Crocheting a sweater 🧶
 ```
 
-The engine's first (and only) stop in the scope chain is the global scope, where
-it finds a variable named `myVar`. The reference to `myVar` inside `first()` is
-pointed at that external variable, so `console.log()` prints out
-`myVar is currently equal to: Foo`.
+Did that catch you by surprise? At first glance, you might think the status
+should have been `Cat tangled all my yarn! 🙀`, and you wouldn't be alone. After
+all, `currentStatus` was set to that inside the `changeStatus()` function that
+we called.
 
-`first()` is declared in the global scope, and, when it comes to the scope
-chain, JavaScript functions don't care where they are invoked. **The only thing
-that matters is where they are declared**. When we declare a new function, the
-function asks, "Where was I created?" The answer to that question is the outer
-environment (the outer scope) that gets stored in the new function's scope
-chain.
+Then, why wasn't that the status that was logged? Lexical scope.
 
-This is called _lexical scoping_, and _lexical environment_ is a synonym for
-_scope_ that you might encounter in advanced JavaScript materials. _Lexical_
-means "having to do with words," and for lexical scoping what counts is where
-we, the programmer, typed out the function declaration within our code.
+Every variable or function you write in JavaScript has a lexical scope. It is
+**the scope in which it was originally defined**. Its home scope. It is what
+decides what belongs in the scope chain of any particular variable or function.
 
-In the example above, we typed out our declaration for `first()` in the global
-scope. If we instead declare `first()` inside `second()`, then `first()`'s
-reference to its outer scope points at `second()` instead of at the global
-scope:
+Why does this matter? As we saw, variables and functions are meant to be used
+throughout your code. They can be called upon in various different places. Or,
+in terms of scope, it can be called upon in other scopes.
+
+However, **just because a variable or function is used in the context of a
+different scope from where it was defined, doesn't mean its scope chain
+changes**. Its chain always remains the same, based on its lexical scope.
+
+Lets write out a bulletpoint scope chain for our example. Here's the code again:
 
 ```js
-const myVar = "Foo";
+const currentStatus = "Crocheting a sweater 🧶";
 
-function second() {
-  function first() {
-    console.log("Inside first()");
+function showStatus() {
+  console.log("Current Status:");
+  console.log(" ", currentStatus);
+}
 
-    console.log("myVar is currently equal to:", myVar);
-  }
-
-  const myVar = "Bar";
-
-  first();
+function changeStatus() {
+  const currentStatus = "Cat tangled all my yarn! 🙀";
+  showStatus();
 }
 ```
 
-When we invoke `second()` this time, it creates a local `myVar` variable set to
-`'Bar'`. Then, it invokes `first()`:
+Here's the scope chain for the entire code block:
 
-```js
-second();
-// LOG: Inside first()
-// LOG: myVar is currently equal to: Bar
-// => undefined
-```
+- Global Scope
+  - `currentStatus`
+  - `showStatus()`
+  - `changeStatus()`
+    - `currentStatus` (separate from the global one)
 
-While `first()` is executing, it again encounters the reference to `myVar` and
-realizes it doesn't have a local variable or function with that name. `first()`
-looks up the scope chain again, but this time `first()`'s outer scope isn't the
-global scope. It's the scope of `second()` **because `first()` was declared
-inside `second()`**. So `first()` uses the version of the `myVar` variable from
-the `second()` scope, which contains the string `'Bar'`.
+We can see that `showStatus()` and `changeStatus()` are on the same level. They
+can use _eachother_, but they do not have access to anything _within
+eachother's_ inner scopes. In other words, they are not part of eachother's
+individual scope chain.
 
-## Wrapping up
+Meaning, when `showStatus()` is invoked in `changeStatus()`, it still only has
+access to anything within its own scope and the global one. From there, what we
+learned about the scope chain remains true. When JavaScript reaches the
+`console.log` referring to the `currentStatus` variable, it first looks within
+its own `showStatus()` scope. It doesn't find it there, so it moves up the chain
+to global, where it finds the original definition.
 
-If this isn't making a ton of sense, don't sweat it too much! We're spending
-time on things like the _scope chain_ and the _lexical environment_ now because
-they're fundamental to the language, but they are not easy concepts to grasp!
-Keep these concepts in mind as you move through the rest of the course. As you
-write more and more JavaScript code, you'll notice some of the language's
-eccentricities cropping up. But then you'll remember things like lexical scoping
-and the scope chain, and you'll be in a much better position to explain what's
-going on — **why** your code is being interpreted a certain way.
-
-Investing the time and effort now will pay huge dividends throughout your
-JavaScript programming career. Knowing how to declare and invoke a function is
-great and necessary, but knowing what's actually going on under the hood during
-the declaration and invocation is exponentially more powerful.
-
-When a variable contains an unexpected value, understanding the scope chain will
-save you countless hours of painful debugging. When you're wondering where to
-declare a function so that it can access the proper variables, your familiarity
-with JavaScript's lexical scoping will save the day. When you want to impress
-some new friends at a party, hit 'em with a quick lesson on how running
-JavaScript code consists of distinct compilation and execution phases.
-
-## Resources
-
--
-  [JavaScript: Understanding the Weird Parts - The First 3.5 Hours](https://www.youtube.com/watch?v=Bv_5Zv5c-Ts)
-  (Video)
+It never looks inside `changeStatus()`'s scope because, as we learned, the scope
+chain only moves _upward_, never sideways.
